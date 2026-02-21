@@ -1,0 +1,30 @@
+# node-modules
+node_modules/
+
+# build
+dist/
+dist-ssr/
+*.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# misc
+.DS_Store
+.env
+.env*.local
+.gemini/
+.agent/
+brain/
