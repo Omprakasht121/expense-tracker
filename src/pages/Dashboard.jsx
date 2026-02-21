@@ -4,6 +4,8 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { useExpenses } from '../context/ExpenseContext'
 import { getCategoryById, CATEGORIES } from '../data/constants'
 import AddExpenseModal from '../components/AddExpenseModal'
+import SetBudgetModal from '../components/SetBudgetModal'
+import { Edit2 } from 'lucide-react'
 
 export default function Dashboard() {
     const {
@@ -17,6 +19,7 @@ export default function Dashboard() {
     } = useExpenses()
 
     const [modalOpen, setModalOpen] = useState(false)
+    const [budgetModalOpen, setBudgetModalOpen] = useState(false)
 
     const dailyData = getDailySpending()
     const budgetUsedPercent = Math.round((totalSpending / budget) * 100)
@@ -86,7 +89,7 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="animate-fade-in flex flex-col gap-16">
+        <div className="animate-fade-in flex flex-col gap-10">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -105,20 +108,31 @@ export default function Dashboard() {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {statsCards.map((card, i) => (
                     <div
                         key={i}
-                        className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100 card-hover transition-smooth"
+                        className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 card-hover transition-smooth"
                     >
                         <div className="flex items-start justify-between mb-4">
                             <div className={`p-2.5 rounded-xl ${card.iconBg}`}>
                                 <card.icon className={`w-5 h-5 ${card.color}`} />
                             </div>
-                            <span className={`text-xs font-medium px-2 py-1 rounded-full ${card.bg} ${card.color}`}>
-                                {card.trendUp ? <TrendingUp className="w-3 h-3 inline mr-1" /> : <TrendingDown className="w-3 h-3 inline mr-1" />}
-                                {card.trend}
-                            </span>
+                            <div className="flex flex-col items-end gap-1">
+                                <span className={`text-xs font-medium px-2 py-1 rounded-full ${card.bg} ${card.color}`}>
+                                    {card.trendUp ? <TrendingUp className="w-3 h-3 inline mr-1" /> : <TrendingDown className="w-3 h-3 inline mr-1" />}
+                                    {card.trend}
+                                </span>
+                                {i === 0 && (
+                                    <button
+                                        onClick={() => setBudgetModalOpen(true)}
+                                        className="p-1.5 hover:bg-slate-50 rounded-lg text-slate-400 hover:text-primary-500 transition-colors tooltip"
+                                        title="Edit Budget"
+                                    >
+                                        <Edit2 className="w-3.5 h-3.5" />
+                                    </button>
+                                )}
+                            </div>
                         </div>
                         <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">{card.label}</p>
                         <p className="text-2xl font-bold text-slate-800 mt-1 font-numeric">{card.value}</p>
@@ -129,7 +143,7 @@ export default function Dashboard() {
             {/* Charts Row */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 {/* Spending Trends */}
-                <div className="lg:col-span-2 bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+                <div className="lg:col-span-2 bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                     <div className="flex items-center justify-between mb-6">
                         <div>
                             <h2 className="text-lg font-bold text-slate-800">Spending Trends</h2>
@@ -175,7 +189,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Spending Distribution */}
-                <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+                <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                     <h2 className="text-lg font-bold text-slate-800 mb-4">Distribution</h2>
                     <div className="h-[200px] relative">
                         <ResponsiveContainer width="100%" height="100%">
@@ -224,14 +238,14 @@ export default function Dashboard() {
             </div>
 
             {/* Recent Transactions */}
-            <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                 <div className="flex items-center justify-between mb-6">
                     <h2 className="text-lg font-bold text-slate-800">Recent Transactions</h2>
                     <a href="/expenses" className="text-xs font-semibold text-primary-500 hover:text-primary-600 transition-colors">
                         View All
                     </a>
                 </div>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-4">
                     {recentExpenses.map((expense) => {
                         const cat = getCategoryById(expense.category)
                         return (
@@ -261,6 +275,7 @@ export default function Dashboard() {
             </div>
 
             <AddExpenseModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+            <SetBudgetModal isOpen={budgetModalOpen} onClose={() => setBudgetModalOpen(false)} />
         </div>
     )
 }

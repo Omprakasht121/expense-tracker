@@ -136,7 +136,7 @@ export default function Analytics() {
     const COLORS = categoryData.map(d => d.color)
 
     return (
-        <div className="animate-fade-in flex flex-col gap-16 max-w-6xl mx-auto">
+        <div className="animate-fade-in flex flex-col gap-10 max-w-6xl mx-auto">
             {/* Header */}
             <div>
                 <h1 className="text-2xl md:text-3xl font-bold text-slate-800">Analytics</h1>
@@ -144,8 +144,8 @@ export default function Analytics() {
             </div>
 
             {/* Top Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                     <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Total Budget</p>
                     <p className="text-2xl font-bold text-slate-800 mt-1 font-numeric">₹{budget.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
                     <div className="mt-3 h-2 bg-slate-100 rounded-full overflow-hidden">
@@ -158,7 +158,7 @@ export default function Analytics() {
                         />
                     </div>
                 </div>
-                <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+                <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                     <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Total Spent</p>
                     <p className="text-2xl font-bold text-slate-800 mt-1 font-numeric">₹{totalSpending.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</p>
                     <p className="text-xs text-orange-500 font-medium mt-2">
@@ -166,7 +166,7 @@ export default function Analytics() {
                         {Math.round((totalSpending / budget) * 100)}% of budget
                     </p>
                 </div>
-                <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+                <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                     <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Remaining</p>
                     <p className={`text-2xl font-bold mt-1 font-numeric ${budget - totalSpending >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
                         ₹{(budget - totalSpending).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -182,9 +182,9 @@ export default function Analytics() {
             </div>
 
             {/* Charts Row */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Category Breakdown */}
-                <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+                <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                     <h2 className="text-lg font-bold text-slate-800 mb-5">Category Breakdown</h2>
                     <div className="space-y-4">
                         {categoryData.map((cat, i) => (
@@ -214,7 +214,7 @@ export default function Analytics() {
                 </div>
 
                 {/* Monthly Comparison */}
-                <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+                <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                     <h2 className="text-lg font-bold text-slate-800 mb-5">Monthly Comparison</h2>
                     <div className="h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
@@ -241,9 +241,9 @@ export default function Analytics() {
             </div>
 
             {/* Second Row */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Weekly Trends */}
-                <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+                <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                     <h2 className="text-lg font-bold text-slate-800 mb-5">Weekly Spending Trend</h2>
                     <div className="h-[260px]">
                         <ResponsiveContainer width="100%" height="100%">
@@ -276,7 +276,7 @@ export default function Analytics() {
                 </div>
 
                 {/* Smart Insights */}
-                <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+                <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                     <h2 className="text-lg font-bold text-slate-800 mb-5">Smart Insights</h2>
                     <div className="space-y-3">
                         {insights.map((insight, i) => (
@@ -299,7 +299,7 @@ export default function Analytics() {
             </div>
 
             {/* Distribution Donut */}
-            <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                 <h2 className="text-lg font-bold text-slate-800 mb-5">Spending Distribution</h2>
                 <div className="flex flex-col md:flex-row items-center gap-8">
                     <div className="h-[250px] w-[250px] relative">

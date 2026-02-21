@@ -12,6 +12,7 @@ export default function Expenses() {
     const [categoryFilter, setCategoryFilter] = useState('all')
     const [sortBy, setSortBy] = useState('date-desc')
     const [deleteConfirm, setDeleteConfirm] = useState(null)
+    const [showDeleteAllConfirm, setShowDeleteAllConfirm] = useState(false)
 
     const filteredExpenses = useMemo(() => {
         let result = [...expenses]
@@ -59,6 +60,11 @@ export default function Expenses() {
         setDeleteConfirm(null)
     }
 
+    const handleDeleteAll = () => {
+        dispatch({ type: 'DELETE_ALL_EXPENSES' })
+        setShowDeleteAllConfirm(false)
+    }
+
     const handleCloseModal = () => {
         setModalOpen(false)
         setEditExpense(null)
@@ -67,24 +73,54 @@ export default function Expenses() {
     const totalFiltered = filteredExpenses.reduce((sum, e) => sum + e.amount, 0)
 
     return (
-        <div className="animate-fade-in flex flex-col gap-16">
+        <div className="animate-fade-in flex flex-col gap-10">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl md:text-3xl font-bold text-slate-800">Expenses</h1>
                     <p className="text-slate-500 mt-1">Manage and track all your transactions</p>
                 </div>
-                <button
-                    onClick={() => setModalOpen(true)}
-                    className="flex items-center gap-2 px-10 py-4 rounded-xl bg-primary-500 text-white text-sm font-semibold hover:bg-primary-600 shadow-lg shadow-primary-500/25 transition-all duration-200 self-start sm:self-auto"
-                >
-                    <Plus className="w-4 h-4" />
-                    Add Expense
-                </button>
+                <div className="flex items-center gap-3 self-start sm:self-auto">
+                    {expenses.length > 0 && (
+                        showDeleteAllConfirm ? (
+                            <div className="flex items-center gap-2 animate-fade-in">
+                                <span className="text-xs font-semibold text-red-500 mr-1">Confirm Delete All?</span>
+                                <button
+                                    onClick={handleDeleteAll}
+                                    className="px-4 py-2 rounded-xl bg-red-500 text-white text-xs font-semibold hover:bg-red-600 transition-colors shadow-sm"
+                                >
+                                    Yes, Clear All
+                                </button>
+                                <button
+                                    onClick={() => setShowDeleteAllConfirm(false)}
+                                    className="px-4 py-2 rounded-xl bg-slate-100 text-slate-500 text-xs font-semibold hover:bg-slate-200 transition-colors shadow-sm"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        ) : (
+                            <button
+                                onClick={() => setShowDeleteAllConfirm(true)}
+                                className="flex items-center gap-2 px-4 py-4 rounded-xl border border-red-200 bg-white text-red-500 text-sm font-semibold hover:bg-red-50 transition-all duration-200"
+                                title="Delete all expenses"
+                            >
+                                <Trash2 className="w-4 h-4" />
+                                Clear All
+                            </button>
+                        )
+                    )}
+                    <button
+                        onClick={() => setModalOpen(true)}
+                        className="flex items-center gap-2 px-6 py-4 rounded-xl bg-primary-500 text-white text-sm font-semibold hover:bg-primary-600 shadow-lg shadow-primary-500/25 transition-all duration-200"
+                    >
+                        <Plus className="w-4 h-4" />
+                        Add Expense
+                    </button>
+                </div>
             </div>
 
             {/* Filters Bar */}
-            <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
                 <div className="flex flex-col md:flex-row gap-4">
                     {/* Search */}
                     <div className="flex-1 relative">
@@ -142,7 +178,7 @@ export default function Expenses() {
             </div>
 
             {/* Expense List */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-3">
                 {filteredExpenses.length === 0 ? (
                     <div className="bg-white rounded-2xl p-12 shadow-sm border border-slate-100 text-center">
                         <div className="text-5xl mb-4">💸</div>
@@ -166,10 +202,10 @@ export default function Expenses() {
                         return (
                             <div
                                 key={expense.id}
-                                className="bg-white rounded-2xl p-10 md:p-12 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-200 group"
+                                className="bg-white rounded-2xl p-4 md:p-5 shadow-sm border border-slate-100 hover:shadow-md transition-all duration-200 group"
                             >
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-3">
                                         <div
                                             className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"
                                             style={{ backgroundColor: cat.bgColor }}

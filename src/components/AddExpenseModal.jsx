@@ -57,7 +57,7 @@ export default function AddExpenseModal({ isOpen, onClose, editExpense = null })
                 onClick={e => e.stopPropagation()}
             >
                 {/* HEADER */}
-                <div className="flex items-center justify-between px-10 pt-10 pb-6 border-b border-slate-100">
+                <div className="flex items-center justify-between px-8 pt-8 pb-5 border-b border-slate-100">
                     <h2 className="text-lg font-semibold text-slate-800">
                         {editExpense ? 'Edit Expense' : 'Add New Expense'}
                     </h2>
@@ -73,10 +73,10 @@ export default function AddExpenseModal({ isOpen, onClose, editExpense = null })
                 {/* CONTENT */}
                 <form
                     onSubmit={handleSubmit}
-                    className="px-10 py-10 flex flex-col gap-10"
+                    className="px-8 py-8 flex flex-col gap-6"
                 >
                     {/* AMOUNT */}
-                    <div className="text-center flex flex-col gap-4">
+                    <div className="text-center flex flex-col gap-3">
                         <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             Amount
                         </label>
@@ -97,8 +97,8 @@ export default function AddExpenseModal({ isOpen, onClose, editExpense = null })
                     </div>
 
                     {/* CATEGORY + DATE */}
-                    <div className="grid grid-cols-2 gap-8">
-                        <div className="flex flex-col gap-3">
+                    <div className="grid grid-cols-2 gap-6">
+                        <div className="flex flex-col gap-2">
                             <label className="text-xs font-semibold text-slate-400 uppercase">
                                 Category
                             </label>
@@ -118,7 +118,7 @@ export default function AddExpenseModal({ isOpen, onClose, editExpense = null })
                             </select>
                         </div>
 
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-2">
                             <label className="text-xs font-semibold text-slate-400 uppercase">
                                 Date
                             </label>
@@ -152,7 +152,7 @@ export default function AddExpenseModal({ isOpen, onClose, editExpense = null })
                     </div>
 
                     {/* NOTE */}
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-2">
                         <label className="text-xs font-semibold text-slate-400 uppercase">
                             Note <span className="normal-case text-slate-300">(Optional)</span>
                         </label>
